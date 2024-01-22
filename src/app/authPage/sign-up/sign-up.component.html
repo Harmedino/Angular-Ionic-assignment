@@ -1,0 +1,134 @@
+<div class="h-screen w-full bg-white97">
+  <div
+    class="flex flex-col items-center justify-center min-h-screen bg-white rounded-lg p-10"
+  >
+    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+      <p class="text-3xl font-semibold mb-4 text-center font-vetnam">Sign Up</p>
+      <p class="mb-6">Create an account to unlock exclusive features.</p>
+
+      <!-- Form -->
+      <form (submit)="onSubmit(signUpForm)" #signUpForm="ngForm">
+        <div class="mb-4">
+          <label for="fullName" class="block mb-2.5 font-medium"
+            >Full Name</label
+          >
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Enter your name"
+            class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
+            name="fullName"
+            ngModel
+            required
+            #fullName="ngModel"
+            [ngClass]="{border: !fullName.valid && fullName.touched ? 'red-500' : ''}"
+          />
+          <span class=" text-red-500" *ngIf="!fullName.valid && fullName.touched">Please enter a name</span>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block mb-2.5 font-medium">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
+            name="email"
+            required
+            ngModel
+            #email="ngModel"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          />
+
+          <div *ngIf="email.touched">
+            <p class=" text-red-500" *ngIf="email.errors?.['required']">Email is a required field!</p>
+            <p  class=" text-red-500" *ngIf="email.errors?.['pattern']">This is not a valid Email!!!</p>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="block mb-2.5 font-medium"
+            >Password</label
+          >
+          <div class="relative">
+            <input
+            [type]="showPassword"
+              id="password"
+              placeholder="Enter your password"
+              class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
+              name="password"
+              ngModel
+              required
+              #password="ngModel"
+            />
+
+            <div class="absolute inset-y-0 right-0 pr-1 flex items-center">
+              <i
+                class="{{
+                  eye
+                    ? ' fa fa-eye-slash  mr-3  flex items-center p-3 py-2'
+                    : ' fa fa-eye mr-3  flex items-center p-3 py-2'
+                }}"
+                (click)="show()"
+              ></i>
+            </div>
+
+
+          </div>
+          <span class=" text-red-500" *ngIf="!password.valid && password.touched">Please enter a password!</span>
+        </div>
+
+
+
+        <button
+          type="submit"
+          class="w-full bg-ornge50 text-white p-2 rounded-lg "
+          [disabled]="!signUpForm.valid"
+          [ngStyle]="{ cursor: signUpForm.invalid ? 'not-allowed' : 'pointer' }"
+        >
+          Sign Up
+        </button>
+      </form>
+
+      <!-- Separator -->
+      <div class="flex items-center my-6">
+        <div class="border-t border-gray-300 flex-grow"></div>
+        <div class="mx-4 text-gray-500">OR</div>
+        <div class="border-t border-gray-300 flex-grow"></div>
+      </div>
+
+
+
+      <!-- Already have an account? Login -->
+      <p class="pt-4 text-center">
+        Already have an account?
+        <a routerLink="/login" class="text-ornge50 underline cursor-pointer"
+          >Login</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
+
+<div
+  id="myToast"
+  class="hidden fixed top-0  left-0 w-full z-50 px-5 py-4 border-r-8 border-blue-500 bg-[#13945e] drop-shadow-lg"
+>
+  <p class="text-sm">
+    <span
+      class="mr-2 inline-block px-3 py-1 rounded-full bg-blue-500 text-white font-extrabold"
+      >i</span
+    >
+    {{ toastText }}
+  </p>
+</div>
+
+<div class="mt-10 space-x-5 hidden">
+  <button
+    (click)="showToast()"
+    id="toastBtn"
+    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white"
+  >
+    Show Toast
+  </button>
+</div>

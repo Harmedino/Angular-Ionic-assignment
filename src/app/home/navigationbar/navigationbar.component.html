@@ -1,0 +1,122 @@
+<!-- app-header.component.html -->
+<div
+  class="header font-vetnam w-[100%] h-20 flex items-center justify-between md:px-12 px-4  fixed top-0 left-0 z-50"
+  [ngClass]="{'bg-white shadow-md': isScrolled, 'bg-white97 ': !isScrolled }"
+>
+  <div class="flex items-center">
+    <img src="../../../assets/images/logo.png" alt="logo" class="w-3/4" />
+  </div>
+  <ul class="hidden md:flex items-center space-x-2">
+    <li class="">
+      <a
+        routerLink="/"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-gray-800 cursor-pointer transition px-2 py-2 rounded-lg"
+        routerLinkActive="bg-ornge50"
+        >Home</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/courses"
+        class="text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        routerLinkActive="bg-ornge50"
+        >Courses</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/about-us"
+        class="text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        routerLinkActive="bg-ornge50"
+        >About Us</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/pricing"
+        class="text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        routerLinkActive="bg-ornge50"
+        >Pricing</a
+      >
+    </li>
+    <li>
+      <a
+        routerLink="/contact-us"
+        class="text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        routerLinkActive="bg-ornge50"
+        >Contact Us</a
+      >
+    </li>
+  </ul>
+
+  <div class="flex items-center">
+    <a routerLink="/register" class="hover:bg-white hover:text-ornge50 transition duration-300 border border-white px-4 py-2 rounded">
+      Sign up
+    </a>
+    <a routerLink="/login" class="text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2">
+      Login
+    </a>
+  </div>
+
+
+
+  <div class="md:hidden">
+    <button class="text-2xl" (click)="toggleMobileMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="35" viewBox="0 0 34 35" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.25 10.0625C4.25 9.4757 4.7257 9 5.3125 9H28.6875C29.2743 9 29.75 9.4757 29.75 10.0625C29.75 10.6493 29.2743 11.125 28.6875 11.125H5.3125C4.7257 11.125 4.25 10.6493 4.25 10.0625ZM4.25 17.5C4.25 16.9132 4.7257 16.4375 5.3125 16.4375H28.6875C29.2743 16.4375 29.75 16.9132 29.75 17.5C29.75 18.0868 29.2743 18.5625 28.6875 18.5625H5.3125C4.7257 18.5625 4.25 18.0868 4.25 17.5ZM15.9375 24.9375C15.9375 24.3507 16.4132 23.875 17 23.875H28.6875C29.2743 23.875 29.75 24.3507 29.75 24.9375C29.75 25.5243 29.2743 26 28.6875 26H17C16.4132 26 15.9375 25.5243 15.9375 24.9375Z" fill="#262626"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu links -->
+
+  <div
+    class="md:hidden flex flex-col items-center absolute top-16 left-0 z-10 right-0 bg-white p-4 h-72 w-full mx-auto"
+    *ngIf="mobileMenuOpen"
+  >
+    <ul class="flex flex-col items-center space-y-8">
+      <li>
+        <a
+        [routerLinkActiveOptions]=" {exact: true}"
+        routerLinkActive="bg-ornge50"
+          routerLink="/"
+          class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+        routerLinkActive="bg-ornge50"
+          routerLink="/courses"
+          class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
+          >Courses</a
+        >
+      </li>
+      <li>
+        <a
+        routerLinkActive="bg-ornge50"
+          routerLink="/about-us"
+          class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
+          >About Us</a
+        >
+      </li>
+      <li>
+        <a
+        routerLinkActive="bg-ornge50"
+          routerLink="/pricing"
+          class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
+          >Pricing</a
+        >
+      </li>
+      <li>
+        <a
+        routerLinkActive="bg-ornge50"
+          routerLink="/contact-us"
+          class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
+          >Contact Us</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

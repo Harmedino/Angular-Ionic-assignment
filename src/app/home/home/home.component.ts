@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationbarComponent } from '../navigationbar/navigationbar.component';
 import { HeropageComponent } from '../heropage/heropage.component';
-import { OurCoursesComponent } from '../our-courses/our-courses.component';
-import { TestimonialComponent } from '../testimonial/testimonial.component';
-import { PricingComponent } from '../pricing/pricing.component';
+import { OurCoursesComponent } from '../../coursePage/our-courses/our-courses.component';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
@@ -17,8 +15,6 @@ import { FooterComponent } from '../footer/footer.component';
     NavigationbarComponent,
     HeropageComponent,
     OurCoursesComponent,
-    TestimonialComponent,
-    PricingComponent,
     FooterComponent
   ],
 })

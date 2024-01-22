@@ -1,4 +1,4 @@
-[
+{"courses" : [
   {
     "courseName": "Advanced Machine Learning",
     "author": "Alex Johnson",
@@ -132,4 +132,4 @@
     "discountPercentage": "16%",
     "tags": ["Cloud Computing"]
   }
-]
+]}

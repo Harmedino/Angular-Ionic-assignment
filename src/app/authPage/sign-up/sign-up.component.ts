@@ -39,36 +39,7 @@ export class SignUpComponent {
     }
 
     // Call the createUser method of the AuthServiceService
-    this.authService.createUser(
-      form.value.fullName,
-      form.value.email,
-      form.value.password
-    ).subscribe(
-      (response) => {
-        // Handle the success response from the service
-        this.responseMessage = response;
-        if (this.responseMessage?.status === 'success') {
-          // Display a success message in the popup
-          this.toastText = 'User account created successfully.';
-          document?.getElementById('toastBtn')?.click();
-
-          // Redirect to the login page after a successful creation (uncomment the following lines)
-          // setTimeout(() => {
-          //   this.router.navigate(['/login']);
-          // }, 4000);
-        } else {
-          // Display an error message from the service in the popup
-          this.toastText = this.responseMessage.message || 'Error creating user account.';
-          document?.getElementById('toastBtn')?.click();
-        }
-      },
-      (error) => {
-        // Handle errors from the service
-        console.error(error);
-        this.toastText = 'Error creating user account. Please try again later.';
-        document?.getElementById('toastBtn')?.click();
-      }
-    );
+   
   }
 
   show() {

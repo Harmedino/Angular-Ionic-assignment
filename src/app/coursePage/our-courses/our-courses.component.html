@@ -1,0 +1,53 @@
+<div class="benefit w-full py-14">
+  <span class="font-semibold text-3xl lg:text-4xl">Our Courses</span>
+  <div class="flex justify-between md:flex-row flex-col md:space-y-0 space-y-3">
+    <p class="md:w-3/4 text-grey35 lg:text-lg md:text-base text-sm py-3">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+      reprehenderit, deleniti harum vitae voluptates dolor modi aliquid, eveniet
+      amet ipsum tempore! Tempora, velit aperiam vero corrupti rerum labore
+      quasi! Harum hic veniam omnis consequuntur expedita nihil praesentium
+      maiores. Nostrum, mollitia.
+    </p>
+    <button
+      class="bg-white rounded lg:text-lg md:text-base text-sm font-medium w-fit h-fit py-2 border px-3"
+    >
+      View All
+    </button>
+  </div>
+
+  <section class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 py-6 gap-6">
+    <div class="border bg-white p-6 rounded shadow" *ngFor="let item of pagedCourses">
+      <div class="container mx-auto">
+        <img src="../../../assets/images/Image.png" alt="" class="w-full rounded">
+
+        <div class="mt-6">
+          <p class="font-bold text-xl">{{ item.courseName }}</p>
+          <p>{{ item.author }}</p>
+
+          <div class="flex flex-wrap gap-2">
+            <div *ngFor="let tag of item.tags" class="bg-gray-200 rounded-full px-3 py-1 text-sm text-gray-700">{{ tag }}</div>
+          </div>
+
+          <p class="text-gray-500 mt-2">Actual Price: <del>{{ item.actualPrice }}</del></p>
+          <p class="text-green-500 font-bold">Discount: {{ item.discountPercentage }}</p>
+
+          <!-- Add to Cart and Add to Wishlist buttons -->
+          <div class="flex gap-2 mt-4">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+            <button class="bg-gray-500 text-white px-4 py-2 rounded">Add to Wishlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+
+
+
+  </section>
+  <mat-paginator [pageSize]="pageSize" [pageIndex]="currentPage" [length]="courses.length" (page)="onPageChange($event)"></mat-paginator>
+
+
+
+  </div>
+

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
 import { FooterComponent } from '../../home/footer/footer.component';
-import { CurriculumComponent } from '../curriculum/curriculum.component';
 
 @Component({
   selector: 'app-course-page',
@@ -11,7 +10,6 @@ import { CurriculumComponent } from '../curriculum/curriculum.component';
     CommonModule,
     NavigationbarComponent,
     FooterComponent,
-    CurriculumComponent,
   ],
   templateUrl: './course-page.component.html',
   styleUrl: './course-page.component.css',

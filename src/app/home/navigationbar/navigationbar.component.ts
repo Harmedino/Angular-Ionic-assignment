@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CourseService } from '../../coursePage/course-service.service';
+import { OrdersService } from '../../orders/orders.service';
 
 @Component({
   selector: 'app-navigationbar',
@@ -17,17 +18,29 @@ export class NavigationbarComponent implements OnInit {
   searchTerm = '';
   showResults = false;
   searchResults: any = [];
+  cartItems:any = []
+  wishlistItems:any = [{}]
 
-  constructor(private courseService:CourseService){}
+  constructor(private courseService:CourseService, private orderService: OrdersService){}
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+
   }
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     this.isScrolled = window.scrollY > 10;
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.orderService.wishlistItems$.subscribe(response => {
+      this.wishlistItems = response;
+    });
+
+    this.orderService.cartItems$.subscribe(response => {
+      this.cartItems = response
+    })
+
+  }
 
   onSearchInput() {
     this.courseService.searchAndSortCourses(this.searchTerm).subscribe(
@@ -43,9 +56,7 @@ export class NavigationbarComponent implements OnInit {
     );
   }
 
-  toggleSearch() {
-    
-  }
+
 
   onSearchClick() {
     this.courseService.searchAndSortCourses(this.searchTerm).subscribe(

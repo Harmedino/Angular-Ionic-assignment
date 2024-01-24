@@ -1,48 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdersService } from '../orders.service';
+import { NgFor, NgIf } from '@angular/common';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
-import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart-list',
   standalone: true,
-  imports: [NavigationbarComponent, NgFor],
+  imports: [NavigationbarComponent, NgFor, NgIf, RouterLink],
   templateUrl: './cart-list.component.html',
-  styleUrl: './cart-list.component.css',
+  styleUrls: ['./cart-list.component.css'],
 })
 export class CartListComponent implements OnInit {
-  cartItems: any[] = [
-    {
-      courseName: 'Mobile App UX Design',
-      author: 'Daniel Smith',
-      actualPrice: '₹999',
-      discountPercentage: '18%',
-      tags: ['UX Design', 'Mobile App Development'],
-      img: '../../../assets/images/Image.png',
-      quantity: 1,
-      total: 999,
-    },
-    // Add more dummy data as needed
-  ];
+  cartItems: any[] = [];
+  grand: number = 0;
 
-  grand: number = 999; // Assuming an initial value for the total
+  constructor(private ordersService: OrdersService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    // Fetch cart items from the service
+    this.cartItems = this.ordersService.getCartItems();
 
-  ngOnInit(): void {}
+    // Calculate grand total
+    this.calculateGrandTotal();
 
-  sub(index: number): void {
-    // Handle subtraction logic
+
   }
 
-  add(index: number): void {
-    // Handle addition logic
-  }
+
 
   onDelete(index: number): void {
-    // Handle deletion logic
+    // Remove the item from the cartItems array based on the index
+    this.cartItems.splice(index, 1);
+
+    // Recalculate the grand total after deleting an item
+    this.calculateGrandTotal();
   }
 
   checkOut(grandTotal: number): void {
     // Handle checkout logic
   }
+
+  private calculateGrandTotal(): void {
+    // Calculate grand total based on cart items
+    this.grand = this.cartItems.reduce((total, item) => {
+      const actualPrice = +item.actualPrice.replace('₹', '');
+      const discountPercentage = +item.discountPercentage.replace('%', '') / 100;
+
+
+      const discountedPrice = actualPrice - (actualPrice * discountPercentage);
+      console.log( discountedPrice);
+      return total + discountedPrice
+    }, 0);
+  }
+
 }

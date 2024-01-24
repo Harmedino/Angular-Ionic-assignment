@@ -21,7 +21,6 @@ import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
   styleUrl: './sign-up.component.css',
 })
 export class SignUpComponent {
-  responseMessage: any = ''; // Variable to store the response from the service
   eye: any = false; // Variable to toggle password visibility
   showPassword = 'password'; // Initial value for password visibility
   popupText: String = '';
@@ -47,15 +46,25 @@ export class SignUpComponent {
     this.loading = true;
 
     try {
+      // Call the signUp method of the AuthService
       const result = await this.authService.signUp({
         fullName: form.value.fullName,
         email: form.value.email,
         password: form.value.password,
       });
 
+      // Show the popup with the result message
       this.showPopup(result);
+
+      // Navigate to the login page after successful sign-up
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 300);
     } catch (error) {
+      // Log unexpected errors during sign-up
       console.error('Unexpected error during sign-up:', error);
+
+      // Show a generic error message to the user
       this.showPopup('An unexpected error occurred.');
     } finally {
       // Set loading back to false after sign-up is complete (either success or error)
@@ -81,6 +90,7 @@ export class SignUpComponent {
     }
 
     setTimeout(() => {
+
       this.popupModal = false;
     }, 3000);
   }

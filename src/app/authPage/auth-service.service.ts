@@ -7,7 +7,6 @@ import { Firestore, doc, setDoc } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private usersUrl = 'http://localhost:8000/users';
 
   constructor(private auth:Auth, private firestore: Firestore) {}
 
@@ -46,6 +45,35 @@ export class AuthServiceService {
     // Default return statement if none of the conditions are met
     return 'Unexpected error during user registration.';
   }
+
+
+  async login(authData: Authdata): Promise<string> {
+    const { email, password } = authData;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+
+      if (userCredential && userCredential.user) {
+        // You can perform additional actions upon successful login if needed
+        return 'Login successful';
+      } else {
+        return 'Unexpected error during login.';
+      }
+    } catch (error: any) {
+      // Log all Firebase Authentication errors
+      console.error('Login error:', error);
+
+      // Optionally, you can check specific error codes
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        return 'Invalid email or password.';
+      } else if (error.code === 'auth/invalid-email') {
+        return 'Invalid email format.';
+      } else {
+        return 'An error occurred during login.';
+      }
+    }
+  }
+
 
 
 

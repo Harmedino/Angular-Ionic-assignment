@@ -15,12 +15,17 @@
             id="email"
             placeholder="Enter your email"
             class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
-            ngModel
-            #emailInput="ngModel"
-            required
-            email
             name="email"
+            required
+            ngModel
+            #email="ngModel"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
           />
+
+          <div *ngIf="email.touched">
+            <p class=" text-red-500" *ngIf="email.errors?.['required']">Email is a required field!</p>
+            <p  class=" text-red-500" *ngIf="email.errors?.['pattern']">This is not a valid Email!!!</p>
+          </div>
         </div>
 
         <div class="mb-4">
@@ -29,45 +34,41 @@
           >
           <div class="relative">
             <input
-              type="password"
+            [type]="showPassword"
               id="password"
               placeholder="Enter your password"
               class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
+              name="password"
               ngModel
-              #passwordInput="ngModel"
-              name="pasword"
+              required
+              #password="ngModel"
             />
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M12.001 15C13.6578 15 15.001 13.6569 15.001 12C15.001 10.3431 13.6578 9 12.001 9C10.3441 9 9.00098 10.3431 9.00098 12C9.00098 13.6569 10.3441 15 12.001 15Z"
-                  fill="#4C4C4D"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M1.32439 11.4467C2.81164 6.97571 7.02889 3.75 12.0015 3.75C16.9718 3.75 21.1874 6.97271 22.6765 11.4405C22.7969 11.8015 22.797 12.1922 22.6769 12.5533C21.1896 17.0243 16.9723 20.25 11.9997 20.25C7.02945 20.25 2.81381 17.0273 1.32472 12.5595C1.20437 12.1985 1.20426 11.8078 1.32439 11.4467ZM17.251 12C17.251 14.8995 14.9005 17.25 12.001 17.25C9.10148 17.25 6.75098 14.8995 6.75098 12C6.75098 9.1005 9.10148 6.75 12.001 6.75C14.9005 6.75 17.251 9.1005 17.251 12Z"
-                  fill="#4C4C4D"
-                />
-              </svg>
+
+            <div class="absolute inset-y-0 right-0 pr-1 flex items-center">
+              <i
+                class="{{
+                  eye
+                    ? ' fa fa-eye-slash  mr-3  flex items-center p-3 py-2'
+                    : ' fa fa-eye mr-3  flex items-center p-3 py-2'
+                }}"
+                (click)="show()"
+              ></i>
             </div>
+
+
           </div>
+          <span class=" text-red-500" *ngIf="!password.valid && password.touched">Please enter a password!</span>
         </div>
 
-        <p *ngIf="">Invalid credencials</p>
-
         <button
-          type="submit"
-          class="w-full bg-ornge50 text-white p-2 rounded-lg hover:bg-white hover:text-ornge50 transition duration-300"
-        >
-          Login
-        </button>
+        type="submit"
+        class="w-full bg-ornge50 text-white p-2 rounded-lg"
+        [disabled]="!loginForm.valid || loading"
+        [ngStyle]="{ cursor: loginForm.invalid || loading ? 'not-allowed' : 'pointer' }"
+      >
+        <span *ngIf="!loading">Sign Up</span>
+        <span *ngIf="loading"> <i class="fa fa-spin fa-spinner mr-2"></i>Logging in ...</span>
+      </button>
         <!-- Forgot Password link -->
         <p class="pt-4 text-center">
           <a
@@ -85,27 +86,7 @@
         <div class="border-t border-gray-300 flex-grow"></div>
       </div>
 
-      <!-- Login with Google -->
-      <div
-        id="g_id_onload"
-        data-client_id="1034587225888-e3lqmi5ftimlotovupeo08ld6ha9o1cm.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-login_uri="http://localhost:4300/api/v1/login"
-        data-auto_select="true"
-        data-itp_support="true"
-      ></div>
 
-      <div
-        class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="center"
-        data-width="320"
-      ></div>
 
       <!-- Don't have an account? Sign Up -->
       <p class="pt-4 text-center">
@@ -117,3 +98,8 @@
     </div>
   </div>
 </div>
+
+<app-popup-modal *ngIf="popupModal"
+popupText= {{popupText}}
+backgroundColor ={{popupBackground}}
+></app-popup-modal>

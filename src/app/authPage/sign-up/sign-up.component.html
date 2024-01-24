@@ -81,13 +81,16 @@
 
 
         <button
-          type="submit"
-          class="w-full bg-ornge50 text-white p-2 rounded-lg "
-          [disabled]="!signUpForm.valid"
-          [ngStyle]="{ cursor: signUpForm.invalid ? 'not-allowed' : 'pointer' }"
-        >
-          Sign Up
-        </button>
+        type="submit"
+        class="w-full bg-ornge50 text-white p-2 rounded-lg"
+        [disabled]="!signUpForm.valid || loading"
+        [ngStyle]="{ cursor: signUpForm.invalid || loading ? 'not-allowed' : 'pointer' }"
+      >
+        <span *ngIf="!loading">Sign Up</span>
+        <span *ngIf="loading"> <i class="fa fa-spin fa-spinner mr-2"></i>Creating Account</span>
+      </button>
+
+
       </form>
 
       <!-- Separator -->
@@ -110,4 +113,7 @@
   </div>
 </div>
 
-
+<app-popup-modal *ngIf="popupModal"
+popupText= {{popupText}}
+backgroundColor ={{popupBackground}}
+></app-popup-modal>

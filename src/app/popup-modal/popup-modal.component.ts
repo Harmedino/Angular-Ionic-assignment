@@ -17,6 +17,6 @@ export class PopupModalComponent {
   }
 
   @Input() popupText :String = '';
-  @Input() backgroundColor: string = 'red'
+  @Input() backgroundColor: string = ''
 
 }

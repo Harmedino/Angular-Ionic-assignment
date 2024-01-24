@@ -7,11 +7,13 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
+import { Authdata } from '../authData.model';
+
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
 })
@@ -19,17 +21,10 @@ export class SignUpComponent {
   responseMessage: any = ''; // Variable to store the response from the service
   eye: any = false; // Variable to toggle password visibility
   showPassword = 'password'; // Initial value for password visibility
-  toastText: any = ''; // Variable to store the message to display in the toast
 
   constructor(private authService: AuthServiceService, private router: Router) {}
 
-  showToast() {
-    // Function to show a popup notification
-    document?.getElementById('myToast')?.classList.remove('hidden');
-    setTimeout(() => {
-      document?.getElementById('myToast')?.classList.add('hidden');
-    }, 5000);
-  }
+
 
   onSubmit(form: NgForm) {
     // Function to handle form submission
@@ -38,8 +33,13 @@ export class SignUpComponent {
       return;
     }
 
+
+
     // Call the createUser method of the AuthServiceService
-   
+
+    this.authService.signUp({fullName: form.value.fullName, email: form.value.email, password: form.value.password})
+
+
   }
 
   show() {

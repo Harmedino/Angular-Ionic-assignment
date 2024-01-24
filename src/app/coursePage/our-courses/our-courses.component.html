@@ -40,7 +40,7 @@
               <i class="fas fa-shopping-cart mr-2"></i> Add to Cart
             </button>
             <button
-            (click)="addToWish(item)"
+            (click)="addToWishlist(item)"
               class="bg-gray-500 text-white px-4 py-2 rounded flex items-center font-bold hover:bg-gray-600"
             >
               <i class="fas fa-heart mr-2"></i> Add to Wishlist
@@ -58,6 +58,11 @@
   </section>
   <mat-paginator [pageSize]="pageSize" [pageIndex]="currentPage" [length]="courses.length" (page)="onPageChange($event)"></mat-paginator>
 
+
+  <app-popup-modal *ngIf="popupModal"
+  popupText= {{popupText}}
+  backgroundColor ={{popupBackground}}
+  ></app-popup-modal>
 
 
   </div>

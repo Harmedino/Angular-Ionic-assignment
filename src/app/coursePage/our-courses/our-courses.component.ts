@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { CourseService } from '../course-service.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrdersService } from '../../orders/orders.service';
 import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
 
@@ -20,15 +20,22 @@ export class OurCoursesComponent implements OnInit {
   currentPage = 0; // Initial page index
   popupText:String =''
   popupModal: Boolean = false
-  popupBackground:String = ''
+  popupBackground: String = ''
+  currentRoute:String = ''
 
   constructor(private courseService: CourseService,
-    private orderService:OrdersService) {}
+    private orderService: OrdersService,
+  private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.courseService.getCourses().subscribe(data => {
       this.courses = data;
       this.updatePagedCourses();
+    });
+
+    this.route.url.subscribe((segments) => {
+      // Extract the current route
+      this.currentRoute = segments.join('/courses');
     });
   }
 

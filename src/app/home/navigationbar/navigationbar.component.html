@@ -1,16 +1,14 @@
 <!-- app-header.component.html -->
 <div
-  class="header font-vetnam w-[100%] h-20 flex items-center justify-between md:px-12 px-4  fixed top-0 left-0 z-50"
-  [ngClass]="{'bg-white shadow-md': isScrolled, 'bg-white97 ': !isScrolled }"
+  class="header font-vetnam w-[100%] h-20 flex items-center justify-between md:px-12 px-4 fixed top-0 left-0 z-50"
+  [ngClass]="{ 'bg-white shadow-md': isScrolled, 'bg-white97 ': !isScrolled }"
 >
   <div class="flex items-center">
     <img src="../../../assets/images/logo.png" alt="logo" class="w-3/4" />
   </div>
 
-
-
   <div class="hidden md:flex items-center space-x-2">
-    <ul class=" md:flex items-center space-x-2">
+    <ul class="md:flex items-center space-x-2">
       <li class="">
         <a
           routerLink="/"
@@ -31,84 +29,102 @@
 
       <li>
         <a
-          routerLink="/pricing"
+          routerLink="/profile"
           class="text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
           routerLinkActive="bg-ornge50"
           >Profile</a
         >
       </li>
     </ul>
-
-
   </div>
-
 
   <!-- Search bar -->
-  <div class="relative">
-    <input
-      [(ngModel)]="searchTerm"
-      (input)="onSearchInput()"
-      type="text"
-      placeholder="Search"
-      class="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-ornge50 transition w-80 md:w-96"
-    />
-
-    <button class="absolute right-0 top-2 mr-2" (click)="onSearchClick()">
-      <i class="fa fa-search"></i>
-    </button>
-
-    <!-- Dropdown container -->
-    <div
-      class="bg-white w-full absolute z-50 mt-2 rounded-md overflow-hidden"
-      *ngIf="showResults && searchResults.length > 0"
-    >
-      <!-- Individual search results -->
-      <!-- navigationbar.component.html -->
-<!-- Display all results without pagination -->
-<div *ngFor="let result of searchResults" class="result-item px-4 py-2 hover:bg-gray-100 cursor-pointer">
-<a >
-  <div class="result-content">
-    <p class="font-bold">{{ result.courseName }}</p>
-    <p>{{ result.author }}</p>
+  <div
+  #dropdownContainer
+  class="bg-white w-full absolute z-50 mt-2 rounded-md overflow-hidden"
+  *ngIf="showResults && searchResults.length > 0"
+>
+  <!-- Individual search results -->
+  <!-- navigationbar.component.html -->
+  <!-- Display all results without pagination -->
+  <div
+    *ngFor="let result of searchResults"
+    class="result-item px-4 py-2 hover:bg-gray-100 cursor-pointer"
+  >
+    <a [routerLink]="['/courses', result.courseName]" (click)="onResultClick()">
+      <div class="result-content">
+        <p class="font-bold">{{ result.courseName }}</p>
+        <p>{{ result.author }}</p>
+      </div>
+    </a>
   </div>
-</a>
 </div>
 
-    </div>
-  </div>
 
+  <div class="hidden md:block flex items-center space-x-3">
+    <!-- Font Awesome icons for cart and wishlist with dynamic class and ngIf -->
 
-  <div class=" hidden md:block flex items-center space-x-3">
+    <i
+      routerLink="/cart"
+      class="fa fa-shopping-cart text-gray-800 text-2xl cursor-pointer px-2 py-2 rounded-lg transition relative"
+    >
+      <span
+        *ngIf="cartItems.length > 0"
+        class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full"
+        >{{ cartItems.length }}</span
+      >
+    </i>
 
+    <i
+      routerLink="/wishlist"
+      class="fa fa-heart text-gray-800 cursor-pointer text-2xl px-2 py-2 rounded-lg transition relative"
+    >
+      <span
+        *ngIf="wishlistItems.length > 0"
+        class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full"
+        >{{ wishlistItems.length }}</span
+      >
+    </i>
 
- <!-- Font Awesome icons for cart and wishlist with dynamic class and ngIf -->
-
-<i routerLink="/cart" class="fa fa-shopping-cart text-gray-800 text-2xl  cursor-pointer px-2 py-2 rounded-lg transition relative" >
-  <span *ngIf="cartItems.length > 0" class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full">{{ cartItems.length }}</span>
-</i>
-
-<i routerLink="/wishlist" class="fa fa-heart text-gray-800 cursor-pointer text-2xl px-2 py-2 rounded-lg transition relative" >
-  <span *ngIf="wishlistItems.length > 0" class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full">{{ wishlistItems.length }}</span>
-</i>
-
-
-
-    <a routerLink="/register" class="  hover:bg-white hover:text-ornge50 transition duration-300 border border-white px-4 py-2 rounded">
+    <a
+      routerLink="/register"
+      *ngIf="!activeUser"
+      class="hover:bg-white hover:text-ornge50 transition duration-300 border border-white px-4 py-2 rounded"
+    >
       Sign up
     </a>
-    <a routerLink="/login" class="  text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2">
-      Login
+    <a
+      routerLink="/login"
+      *ngIf="!activeUser"
+      class="text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2"
+      >login
     </a>
-
+    <a
+    (click)="logout()"
+      routerLink="/login"
+      *ngIf="activeUser"
+      class="text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2"
+    >
+      Logout
+    </a>
   </div>
 
-
-
-<!-- hamburger icon -->
+  <!-- hamburger icon -->
   <div class="md:hidden">
     <button class="text-2xl" (click)="toggleMobileMenu()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="34" height="35" viewBox="0 0 34 35" fill="none">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.25 10.0625C4.25 9.4757 4.7257 9 5.3125 9H28.6875C29.2743 9 29.75 9.4757 29.75 10.0625C29.75 10.6493 29.2743 11.125 28.6875 11.125H5.3125C4.7257 11.125 4.25 10.6493 4.25 10.0625ZM4.25 17.5C4.25 16.9132 4.7257 16.4375 5.3125 16.4375H28.6875C29.2743 16.4375 29.75 16.9132 29.75 17.5C29.75 18.0868 29.2743 18.5625 28.6875 18.5625H5.3125C4.7257 18.5625 4.25 18.0868 4.25 17.5ZM15.9375 24.9375C15.9375 24.3507 16.4132 23.875 17 23.875H28.6875C29.2743 23.875 29.75 24.3507 29.75 24.9375C29.75 25.5243 29.2743 26 28.6875 26H17C16.4132 26 15.9375 25.5243 15.9375 24.9375Z" fill="#262626"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="34"
+        height="35"
+        viewBox="0 0 34 35"
+        fill="none"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M4.25 10.0625C4.25 9.4757 4.7257 9 5.3125 9H28.6875C29.2743 9 29.75 9.4757 29.75 10.0625C29.75 10.6493 29.2743 11.125 28.6875 11.125H5.3125C4.7257 11.125 4.25 10.6493 4.25 10.0625ZM4.25 17.5C4.25 16.9132 4.7257 16.4375 5.3125 16.4375H28.6875C29.2743 16.4375 29.75 16.9132 29.75 17.5C29.75 18.0868 29.2743 18.5625 28.6875 18.5625H5.3125C4.7257 18.5625 4.25 18.0868 4.25 17.5ZM15.9375 24.9375C15.9375 24.3507 16.4132 23.875 17 23.875H28.6875C29.2743 23.875 29.75 24.3507 29.75 24.9375C29.75 25.5243 29.2743 26 28.6875 26H17C16.4132 26 15.9375 25.5243 15.9375 24.9375Z"
+          fill="#262626"
+        />
       </svg>
     </button>
   </div>
@@ -122,8 +138,8 @@
     <ul class="flex flex-col items-center space-y-8">
       <li>
         <a
-        [routerLinkActiveOptions]=" {exact: true}"
-        routerLinkActive="bg-ornge50"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="bg-ornge50"
           routerLink="/"
           class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
           >Home</a
@@ -131,7 +147,7 @@
       </li>
       <li>
         <a
-        routerLinkActive="bg-ornge50"
+          routerLinkActive="bg-ornge50"
           routerLink="/courses"
           class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
           >Courses</a
@@ -139,27 +155,36 @@
       </li>
       <li>
         <a
-        routerLinkActive="bg-ornge50"
+          routerLinkActive="bg-ornge50"
           routerLink="/about-us"
           class="text-grey30 hover:bg-ornge50 hover:text-white py-2 px-4 rounded transition duration-300"
           >Profile</a
         >
       </li>
       <li>
-
-    <i routerLink="/cart" class="fa fa-shopping-cart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"></i>
-    <i routerLink="/wishlist" class="fa fa-heart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"></i>
+        <i
+          routerLink="/cart"
+          class="fa fa-shopping-cart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        ></i>
+        <i
+          routerLink="/wishlist"
+          class="fa fa-heart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
+        ></i>
       </li>
       <li>
-        <a routerLink="/register" class="hover:bg-white hover:text-ornge50 transition duration-300 border border-white px-4 py-2 rounded">
+        <a
+          routerLink="/register"
+          class="hover:bg-white hover:text-ornge50 transition duration-300 border border-white px-4 py-2 rounded"
+        >
           Sign up
         </a>
-        <a routerLink="/login" class="text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2">
+        <a
+          routerLink="/login"
+          class="text-white bg-ornge50 hover:text-white transition duration-300 px-4 py-2 rounded ml-2"
+        >
           Login
         </a>
       </li>
-
-
     </ul>
   </div>
 </div>

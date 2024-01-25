@@ -1,0 +1,156 @@
+<div class="bg-white97 font-vetnam lg:px-12 md:px-10 sm:px-7 px-4">
+  <app-navigationbar></app-navigationbar>
+  <div class="flex justify-center items-center h-full mt-32 bg-grey30">
+    <div class="bg-white97 md:w-9/12 w-full p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-4">My Profile</h2>
+
+      <div class="flex">
+        <!-- Profile Image -->
+        <div class="w-24 h-24 bg-svgbg rounded-full overflow-hidden mr-4">
+          <!-- Add profile image here -->
+        </div>
+
+        <!-- User Details Form -->
+        <form
+          class="flex flex-col w-full"
+          [formGroup]="formData"
+          (ngSubmit)="saveProfile()"
+          novalidate
+        >
+          <!-- Display Name -->
+          <div [formGroupName]="'userData'" class="mb-4">
+            <label for="displayName" class="block text-sm font-medium text-gray-700 mb-1">Display Name*</label>
+            <input
+              type="text"
+              id="displayName"
+              name="displayName"
+              formControlName="displayName"
+              class="p-2 border rounded-md w-full {{ formData.get('userData.displayName')?.invalid && formData.get('userData.displayName')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            />
+            <small class="text-red-500 text-xs" *ngIf="formData.get('userData.displayName')?.invalid && formData.get('userData.displayName')?.touched">
+              Please enter a valid Display Name without any special characters
+            </small>
+          </div>
+
+          <!-- Full Name -->
+          <div [formGroupName]="'userData'" class="mb-4">
+            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name*</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              formControlName="fullName"
+              class="p-2 border rounded-md w-full {{ formData.get('userData.fullName')?.invalid && formData.get('userData.fullName')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            />
+            <div *ngIf="formData.get('userData.fullName')?.invalid && formData.get('userData.fullName')?.touched" class="text-red-500 text-xs">
+              Full Name is required
+            </div>
+          </div>
+
+          <!-- About Yourself -->
+          <div [formGroupName]="'userData'" class="mb-4">
+            <label for="aboutYourself" class="block text-sm font-medium text-gray-700 mb-1">About Yourself (Max 100 characters)</label>
+            <textarea
+              id="aboutYourself"
+              name="aboutYourself"
+              formControlName="aboutYourself"
+              maxlength="100"
+              class="p-2 border rounded-md w-full {{ formData.get('userData.aboutYourself')?.invalid && formData.get('userData.aboutYourself')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            ></textarea>
+            <div *ngIf="formData.get('userData.aboutYourself')?.invalid && formData.get('userData.aboutYourself')?.touched" class="text-red-500 text-xs">
+              Min 3, Max 100 characters allowed
+            </div>
+          </div>
+
+          <!-- Area of Interest -->
+          <div class="mb-4">
+            <label for="areaOfInterest" class="block text-sm font-medium text-gray-700 mb-1">Your Area of Interest</label>
+            <select
+              id="areaOfInterest"
+              name="areaOfInterest"
+              formControlName="InterestArea"
+              class="p-2 border rounded-md w-full {{ formData.get('InterestArea')?.invalid && formData.get('InterestArea')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            >
+              <option *ngFor="let interest of areaOfInterest" [value]="interest">{{ interest }}</option>
+            </select>
+            <div *ngIf="formData.get('InterestArea')?.invalid && formData.get('InterestArea')?.touched" class="text-red-500 text-xs">
+              Select at least one interest
+            </div>
+          </div>
+
+          <!-- User Type -->
+          <div class="mb-4">
+            <label for="userType" class="block text-sm font-medium text-gray-700 mb-1">Are you a student or a professional?</label>
+            <select
+              id="userType"
+              name="userType"
+              formControlName="userType"
+              class="p-2 border rounded-md w-full {{ formData.get('userType')?.invalid && formData.get('userType')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            >
+              <option value="student">Student</option>
+              <option value="professional">Professional</option>
+            </select>
+            <div *ngIf="formData.get('userType')?.invalid && formData.get('userType')?.touched" class="text-red-500 text-xs">
+              Select a user type
+            </div>
+          </div>
+
+          <!-- Professional Experience -->
+          <div *ngIf="formData.get('userType')?.value === 'professional'" class="mb-4">
+            <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Experience</label>
+            <select
+              id="experience"
+              name="experience"
+              formControlName="experience"
+              class="p-2 border rounded-md w-full {{ formData.get('experience')?.invalid && formData.get('experience')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            >
+              <option value="0-5 years">0-5 years</option>
+              <option value="5-10 years">5-10 years</option>
+              <option value="10 & above years">10 & above years</option>
+            </select>
+            <div *ngIf="formData.get('experience')?.invalid && formData.get('experience')?.touched" class="text-red-500 text-xs">
+              Select your experience level
+            </div>
+
+            <!-- Expertise -->
+            <label for="expertise" class="block text-sm font-medium text-gray-700 mb-1">Expertise (Back end, Front end)</label>
+            <input
+              type="text"
+              id="expertise"
+              name="expertise"
+              formControlName="expertise"
+              class="p-2 border rounded-md w-full {{ formData.get('expertise')?.invalid && formData.get('expertise')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            />
+            <div *ngIf="formData.get('expertise')?.invalid && formData.get('expertise')?.touched" class="text-red-500 text-xs">Invalid Expertise</div>
+          </div>
+
+          <!-- Role -->
+          <div class="mb-4">
+            <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Mention your role (Max 200 characters)</label>
+            <textarea
+              id="role"
+              name="role"
+              formControlName="role"
+              maxlength="200"
+              class="p-2 border rounded-md w-full {{ formData.get('role')?.invalid && formData.get('role')?.touched ? 'border-red-500' : 'border-gray-300 focus:outline-none focus:border-blue-500' }}"
+            ></textarea>
+            <div *ngIf="formData.get('role')?.invalid && formData.get('role')?.touched" class="text-red-500 text-xs">
+              Max 200 characters allowed
+            </div>
+          </div>
+
+          <!-- Save Button -->
+          <button
+            type="submit"
+            class="w-full bg-ornge50 text-white p-2 rounded-lg"
+            [disabled]="!formData.valid || loading"
+            [ngStyle]="{ cursor: formData.invalid || loading ? 'not-allowed' : 'pointer' }"
+          >
+            <span *ngIf="!loading">Save Profile</span>
+            <span *ngIf="loading"> <i class="fa fa-spin fa-spinner mr-2"></i>Saving profile...</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<!-- course-details.component.html -->
+<app-navigationbar></app-navigationbar>
+<!-- course-details.component.html -->
+<app-navigationbar></app-navigationbar>
+<div class="container mx-auto p-4 mt-32">
+  <!-- Page Banner -->
+  <div class="mb-4">
+    <h1 class="text-2xl font-bold">
+      Discover Latest Courses on {{ course?.tags?.join(", ") }}
+    </h1>
+  </div>
+
+  <!-- Breadcrumb -->
+  <nav class="mb-4">
+    <ul class="flex">
+      <li><a routerLink="/">Dashboard</a></li>
+      <li class="mx-2">/</li>
+      <li class="text-blue-500">{{ course?.courseName }}</li>
+    </ul>
+  </nav>
+
+  <!-- Course Content -->
+  <div class="flex">
+    <div class="w-3/4 pr-4">
+      <h2 class="text-xl font-bold mb-2">{{ course?.courseName }}</h2>
+      <p class="text-gray-700">Author: {{ course?.author }}</p>
+      <p class="text-gray-700 mt-4">{{ course?.description }}</p>
+      <p class="text-gray-700 mt-4">
+        Areas of Focus: {{ course?.tags?.join(", ") }}
+      </p>
+      <p class="text-gray-700 mt-4">Duration: {{ course?.duration }} hours</p>
+      <!-- Add more course details here -->
+    </div>
+
+    <!-- Video Card -->
+    <div class="w-1/4">
+      <div class="mb-4">
+        <img
+          src="../../../assets/images/Image.png"
+          alt="Course Thumbnail"
+          class="w-full h-auto"
+        />
+      </div>
+      <div class="bg-white p-4 rounded-md border">
+        <!-- Display the discounted price after removing the discount -->
+        <p class="text-xl font-bold mb-2">
+          ₹{{ (+course.actualPrice.replace('₹', '') - (+course.actualPrice.replace('₹', '') * (+course.discountPercentage.replace('%', '') / 100))).toFixed(2) }}
+        </p>
+        <del class="text-base text-gray-500">₹{{ course.actualPrice }}</del>
+        <p class="text-green-500">{{ course.discountPercentage }} Discount</p>
+        <!-- Add "Add to Cart" and "Add to Wishlist" buttons here -->
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-md"
+        (click)="addToCart(course)"
+        >
+          Add to Cart
+        </button>
+        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md ml-2"
+        (click)="addToWishlist(course)" >
+          Add to Wishlist
+        </button>
+      </div>
+      <!-- Add time left feature here -->
+      <div class="mt-4">
+        <p class="text-gray-700">Time Left for Sale:</p>
+        <div *ngIf="timeLeft < 24" class="text-red-500 font-bold">
+          {{ timeLeft }} hours remaining
+        </div>
+        <div *ngIf="timeLeft >= 24" class="text-gray-700">
+          Sale ends tomorrow
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-popup-modal
+*ngIf="popupModal"
+popupText="{{ popupText }}"
+backgroundColor="{{ popupBackground }}"
+></app-popup-modal>

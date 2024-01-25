@@ -59,9 +59,9 @@
             </button>
             <button
               (click)="addToWishlist(item)"
-              class="bg-gray-500 text-white px-4 py-2 rounded flex items-center font-bold hover:bg-gray-600"
+              class="bg-gray-500  px-4 py-2 rounded flex items-center font-bold hover:bg-gray-600 {{item.wishlist ? 'text-ornge50' : 'text-white'}}"
             >
-              <i class="fas fa-heart mr-2"></i> Add to Wishlist
+              <i class="fas fa-heart"></i>
             </button>
           </div>
 

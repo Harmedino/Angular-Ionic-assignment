@@ -70,25 +70,23 @@ export class ProfileComponent implements OnInit {
 
 
 
-  // Function to save the profile
-  // ...
 
   ngOnInit(): void {
     this.getProfile();
   }
 
-  // ...
 
-  get displayName() {
-    return  this.formData.get('userData.displayName');
-  }
 
   async saveProfile() {
+    // Set loading to true when starting the save operation
     this.loading = true;
 
+    // Fetch user ID from local storage (stored as access token)
     const userId = localStorage.getItem('accessToken');
 
+    // Check if user ID is present
     if (userId) {
+      // Assuming this.formData contains the data you want to save
       const formDataValue = {
         displayName: this.formData.value.userData.displayName,
         fullName: this.formData.value.userData.fullName,
@@ -100,37 +98,52 @@ export class ProfileComponent implements OnInit {
         role: this.formData.value.role,
       };
 
+      // Reference to the Firestore document for the user
       const userRef = doc(this.firestore, 'User', userId);
 
       try {
+        // Use set method to update the Firestore document with the form data
         await setDoc(userRef, formDataValue, { merge: true });
         console.log('Profile data saved successfully.');
+
+        // Show success snackbar
         this.showSuccessSnackbar('Profile data saved successfully.');
       } catch (error) {
         console.error('Error saving profile data:', error);
+
+        // Show error snackbar
         this.showErrorSnackbar('Error saving profile data. Please try again.');
       } finally {
+        // Set loading to false when the save operation completes (whether success or error)
         this.loading = false;
       }
     } else {
       console.error('No user ID found in local storage.');
+
+      // Set loading to false in case of an error
       this.loading = false;
     }
   }
 
+
   private async getProfile(): Promise<void> {
     const userId = localStorage.getItem('accessToken');
 
+    // Check if user ID is present
     if (userId) {
+      // Reference to the Firestore document for the user
       const userRef = doc(this.firestore, 'User', userId);
 
       try {
+        // Fetch the document snapshot asynchronously
         const docSnapshot = await getDoc(userRef);
 
+        // Check if the document exists
         if (docSnapshot.exists()) {
+          // Extract user data from the snapshot
           const userData = docSnapshot.data();
 
-
+          // Set form values based on retrieved user data
           this.formData.setValue({
             userData: {
               displayName: userData['displayName'],
@@ -143,14 +156,17 @@ export class ProfileComponent implements OnInit {
             expertise: userData['expertise'],
             role: userData['role'],
           });
-
         }
       } catch (error) {
         console.error('Error fetching profile:', error);
-        // Handle error appropriately
+
+        // Handle error by showing an error snackbar
+        this.showErrorSnackbar('Error fetching profile. Please try again.');
       }
     }
   }
+
+  
 
   private showSuccessSnackbar(message: string): void {
     this.snackBar.open(message, 'Close', {
@@ -165,4 +181,5 @@ export class ProfileComponent implements OnInit {
       panelClass: 'error-snackbar',
     });
   }
+
 }

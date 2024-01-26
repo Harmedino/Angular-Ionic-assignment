@@ -48,7 +48,7 @@
       class="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:border-ornge50 transition w-80 md:w-96"
     />
 
-    <button class="absolute right-0 top-2 mr-2" (click)="onSearchClick()">
+    <button class="absolute right-0 top-2 mr-2 " (click)="onSearchClick()">
       <i class="fa fa-search"></i>
     </button>
 
@@ -80,7 +80,7 @@
 
     <i
       routerLink="/cart"
-      class="fa fa-shopping-cart text-gray-800 text-2xl cursor-pointer px-2 py-2 rounded-lg transition relative"
+      class="fa fa-shopping-cart text-[#d4d4d8] text-2xl cursor-pointer px-2 py-2 rounded-lg transition relative"
     >
       <span
         *ngIf="cartItems.length > 0"
@@ -91,7 +91,7 @@
 
     <i
       routerLink="/wishlist"
-      class="fa fa-heart text-gray-800 cursor-pointer text-2xl px-2 py-2 rounded-lg transition relative"
+      class="fa fa-heart text-[#d4d4d8] cursor-pointer text-2xl px-2 py-2 rounded-lg transition relative"
     >
       <span
         *ngIf="wishlistItems.length > 0"
@@ -177,13 +177,26 @@
       </li>
       <li>
         <i
-          routerLink="/cart"
-          class="fa fa-shopping-cart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
-        ></i>
-        <i
-          routerLink="/wishlist"
-          class="fa fa-heart text-gray-800 cursor-pointer px-2 py-2 rounded-lg transition"
-        ></i>
+        routerLink="/cart"
+        class="fa fa-shopping-cart text-[#d4d4d8] text-2xl cursor-pointer px-2 py-2 rounded-lg transition relative"
+      >
+        <span
+          *ngIf="cartItems.length > 0"
+          class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full"
+          >{{ cartItems.length }}</span
+        >
+      </i>
+
+      <i
+        routerLink="/wishlist"
+        class="fa fa-heart text-[#d4d4d8] cursor-pointer text-2xl px-2 py-2 rounded-lg transition relative"
+      >
+        <span
+          *ngIf="wishlistItems.length > 0"
+          class="absolute top-[-10px] right-[-3px] bg-red-500 text-white p-2 text-xs rounded-full"
+          >{{ wishlistItems.length }}</span
+        >
+      </i>
       </li>
       <li>
         <a

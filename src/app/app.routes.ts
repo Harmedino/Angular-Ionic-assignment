@@ -11,12 +11,13 @@ import { CouseDetailsComponent } from './coursePage/couse-details/couse-details.
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'courses', component: CoursePageComponent,},
+    path: 'courses',
+    component: CoursePageComponent,
+  },
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: SignInComponent },
   { path: 'register', component: SignUpComponent },
   { path: 'cart', component: CartListComponent },
   { path: 'wishlist', component: WishListComponent },
   { path: 'courses/:details', component: CouseDetailsComponent },
-
 ];

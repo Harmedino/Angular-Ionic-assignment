@@ -4,8 +4,7 @@
     "author": "Alex Johnson",
     "actualPrice": "₹1199",
     "discountPercentage": "15%",
-    "tags": ["Machine Learning", "Python"],
-    "wishlist":true
+    "tags": ["Machine Learning", "Python"]
   },
   {
     "courseName": "JavaScript Frameworks Masterclass",

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../orders/orders.service';
 import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
 import { NgIf } from '@angular/common';
+import { CourseService } from '../course-service.service';
 
 @Component({
   selector: 'app-couse-details',
@@ -16,43 +17,42 @@ export class CouseDetailsComponent implements OnInit {
   course: any;
   timeLeft: number = 0;
   popupText: String = '';
-  popupModal: Boolean = true;
+  popupModal: Boolean = false;
   popupBackground: String = '';
 
   constructor(
     private route: ActivatedRoute,
-    private orderService: OrdersService
+    private orderService: OrdersService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
     // Fetch course details from route parameters
     this.route.params.subscribe((params) => {
-      // In a real scenario, you might fetch the course details from a service based on the course ID
-      // For simplicity, I'm using a hardcoded example here
-      this.course = {
-        courseName: 'JavaScript Frameworks Masterclass',
-        author: 'Emily White',
-        actualPrice: '₹899',
-        discountPercentage: '20%',
-        tags: ['JavaScript', 'React', 'Vue'],
-        description:
-          'Master the art of building web applications with JavaScript frameworks.',
-        duration: 15, // Course duration in hours
-        thumbnail: 'path/to/thumbnail.jpg', // Update with the actual path
-        saleEndDate: new Date('2024-02-01T23:59:59'), // Sale end date (replace with actual date)
-      };
+      const courseName = params['details'];
 
-      // Calculate time left for the sale
-      const now = new Date();
-      if (this.course && this.course.saleEndDate) {
-        const timeDiff = this.course.saleEndDate.getTime() - now.getTime();
-        this.timeLeft = Math.ceil(timeDiff / (1000 * 60 * 60));
-      } else {
-        // Handle the case where this.course or this.course.saleEndDate is undefined
-        this.timeLeft = 0; // or any default value or logic you want
-      }
+      // Fetch courses from the CourseService
+      this.courseService.getCourses().subscribe((courses) => {
+        const courseDetails = courses.find(course => course.courseName === courseName);
+        if (courseDetails) {
+          this.course = courseDetails;
+
+          // Calculate time left for the sale
+          const now = new Date();
+          if (this.course && this.course.saleEndDate) {
+            const timeDiff = this.course.saleEndDate.getTime() - now.getTime();
+            this.timeLeft = Math.ceil(timeDiff / (1000 * 60 * 60));
+          } else {
+            // Handle the case where this.course or this.course.saleEndDate is undefined
+            this.timeLeft = 0; // or any default value or logic you want
+          }
+        } else {
+          return
+        }
+      });
     });
   }
+
 
   showPopup(message: string): void {
     this.popupModal = true;
@@ -79,3 +79,4 @@ export class CouseDetailsComponent implements OnInit {
     this.showPopup(result);
   }
 }
+

@@ -30,10 +30,7 @@ export class ProfileComponent implements OnInit {
   // Add properties for form fields
   formData: FormGroup;
   hello: boolean = true;
-  areaOfInterest: string[] = [
-    'Web Development',
-    'Mobile App Development',
-  ];
+  areaOfInterest: string[] = ['Web Development', 'Mobile App Development'];
   userType: string = 'professional';
   loading: Boolean = false;
 
@@ -68,14 +65,9 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-
-
-
   ngOnInit(): void {
     this.getProfile();
   }
-
-
 
   async saveProfile() {
     // Set loading to true when starting the save operation
@@ -125,7 +117,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
   private async getProfile(): Promise<void> {
     const userId = localStorage.getItem('accessToken');
 
@@ -166,8 +157,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  
-
   private showSuccessSnackbar(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
@@ -181,5 +170,4 @@ export class ProfileComponent implements OnInit {
       panelClass: 'error-snackbar',
     });
   }
-
 }

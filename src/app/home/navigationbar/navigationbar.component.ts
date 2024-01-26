@@ -1,5 +1,10 @@
-
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +15,7 @@ import { AuthServiceService } from '../../authPage/auth-service.service';
 
 @Component({
   selector: 'app-navigationbar',
-  standalone: true,
+  standalone: true, //  This component is intended to be used independently.
   imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NgIf],
   templateUrl: './navigationbar.component.html',
   styleUrl: './navigationbar.component.css',
@@ -40,10 +45,12 @@ export class NavigationbarComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   onScroll() {
+    //  Update the 'isScrolled' property based on scroll position.
     this.isScrolled = window.scrollY > 10;
   }
 
   ngOnInit() {
+    //  Initialize component properties and subscribe to service changes.
     const storedAccessToken = localStorage.getItem('accessToken');
     this.activeUser = storedAccessToken;
 
@@ -57,6 +64,7 @@ export class NavigationbarComponent implements OnInit {
   }
 
   onSearchInput() {
+    //  Perform search when the input value changes.
     this.courseService.searchAndSortCourses(this.searchTerm).subscribe(
       (results) => {
         this.searchResults = results;
@@ -70,6 +78,7 @@ export class NavigationbarComponent implements OnInit {
   }
 
   onSearchClick() {
+    //  Perform search when the search button is clicked.
     this.courseService.searchAndSortCourses(this.searchTerm).subscribe(
       (results) => {
         console.log(results);
@@ -84,11 +93,13 @@ export class NavigationbarComponent implements OnInit {
   }
 
   onResultClick() {
+    //  Hide search results when a result is clicked.
     this.showResults = false;
   }
 
   @HostListener('document:click', ['$event'])
   onOutsideClick(event: Event) {
+    //  Hide search results when clicking outside the dropdown container.
     if (
       this.dropdownContainer &&
       !this.dropdownContainer.nativeElement.contains(event.target)
@@ -98,6 +109,7 @@ export class NavigationbarComponent implements OnInit {
   }
 
   logout() {
+    //  Call the logout method from the authentication service.
     this.authService.logout();
   }
 }

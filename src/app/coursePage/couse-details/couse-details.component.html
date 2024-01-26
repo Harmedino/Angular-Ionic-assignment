@@ -65,8 +65,8 @@
         <div *ngIf="timeLeft < 24" class="text-red-500 font-bold">
           {{ timeLeft }} hours remaining
         </div>
-        <div *ngIf="timeLeft >= 24" class="text-gray-700">
-          Sale ends tomorrow
+        <div *ngIf="timeLeft > 24" class="text-gray-700">
+         Discount ends tomorrow
         </div>
       </div>
     </div>

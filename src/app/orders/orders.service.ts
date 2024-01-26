@@ -39,7 +39,9 @@ export class OrdersService {
     return "Course added to cart successfully.";
   }
 
-
+  clearCart(): void {
+    this.cartItemsSubject.next([]); // Set an empty array to clear the cart
+  }
 
   addToWishlist(item: any): string {
     const cartIndex = this.cartItemsSubject.value.findIndex(cartItem => cartItem.courseName === item.courseName);

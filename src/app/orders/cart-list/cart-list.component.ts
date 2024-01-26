@@ -4,6 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
 import { RouterLink } from '@angular/router';
 import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { CheckoutModalComponent } from '../../checkout-modal/checkout-modal.component';
 
 @Component({
   selector: 'app-cart-list',
@@ -14,6 +15,7 @@ import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
     NgIf,
     RouterLink,
     PopupModalComponent,
+    CheckoutModalComponent,
   ],
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css'],
@@ -24,6 +26,7 @@ export class CartListComponent implements OnInit {
   popupText: String = '';
   popupModal: Boolean = false;
   popupBackground: String = '';
+  showCheckoutModal: boolean = false;
 
   constructor(private ordersService: OrdersService) {}
 
@@ -45,7 +48,9 @@ export class CartListComponent implements OnInit {
   }
 
   checkOut(grandTotal: number): void {
-    // Handle checkout logic
+    this.showCheckoutModal = true;
+    this.ordersService.clearCart();
+    this.cartItems = this.ordersService.getCartItems();
   }
 
   moveToWishlist(item: any) {

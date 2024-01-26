@@ -1,0 +1,11 @@
+<!-- checkout-modal.component.html -->
+
+<div class="fixed top-0 z-50 left-0 w-full h-full bg-ornge50 bg-opacity-75 flex items-center justify-center" *ngIf="showModal">
+  <div class="bg-white p-6 mx-auto rounded-md">
+    <h2 class="text-2xl font-bold mb-4">Order Placed Successfully!</h2>
+    <p>Your order has been placed. Thank you for shopping with us!</p>
+    <button (click)="closeModal()" class="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+      OK
+    </button>
+  </div>
+</div>

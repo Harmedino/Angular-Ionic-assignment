@@ -3,17 +3,18 @@ import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.c
 import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../orders/orders.service';
 import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-couse-details',
   standalone: true,
-  imports: [NavigationbarComponent, PopupModalComponent],
+  imports: [NavigationbarComponent, PopupModalComponent, NgIf],
   templateUrl: './couse-details.component.html',
   styleUrl: './couse-details.component.css',
 })
 export class CouseDetailsComponent implements OnInit {
   course: any;
-  timeLeft: number | undefined;
+  timeLeft: number = 0;
   popupText: String = '';
   popupModal: Boolean = true;
   popupBackground: String = '';
@@ -43,8 +44,13 @@ export class CouseDetailsComponent implements OnInit {
 
       // Calculate time left for the sale
       const now = new Date();
-      const timeDiff = this.course.saleEndDate.getTime() - now.getTime();
-      this.timeLeft = Math.ceil(timeDiff / (1000 * 60 * 60)); // Convert milliseconds to hours
+      if (this.course && this.course.saleEndDate) {
+        const timeDiff = this.course.saleEndDate.getTime() - now.getTime();
+        this.timeLeft = Math.ceil(timeDiff / (1000 * 60 * 60));
+      } else {
+        // Handle the case where this.course or this.course.saleEndDate is undefined
+        this.timeLeft = 0; // or any default value or logic you want
+      }
     });
   }
 
@@ -72,5 +78,4 @@ export class CouseDetailsComponent implements OnInit {
     const result = this.orderService.addToWishlist(course);
     this.showPopup(result);
   }
-
 }

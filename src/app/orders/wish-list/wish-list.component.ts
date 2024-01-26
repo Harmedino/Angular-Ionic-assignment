@@ -3,17 +3,22 @@ import { OrdersService } from '../orders.service';
 import { RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
 
 @Component({
   selector: 'app-wish-list',
   standalone: true,
-  imports: [NavigationbarComponent, NgFor, NgIf, RouterLink, PopupModalComponent],
+  imports: [
+    NavigationbarComponent,
+    NgFor,
+    NgIf,
+    RouterLink,
+    PopupModalComponent,
+  ],
   templateUrl: './wish-list.component.html',
-  styleUrl: './wish-list.component.css'
+  styleUrl: './wish-list.component.css',
 })
 export class WishListComponent {
-
   wishItems: any[] = [];
   popupText: String = '';
   popupModal: Boolean = false;
@@ -24,11 +29,7 @@ export class WishListComponent {
   ngOnInit(): void {
     // Fetch cart items from the service
     this.wishItems = this.ordersService.getWishlistItems();
-
-
   }
-
-
 
   onDelete(item: any): void {
     const result = this.ordersService.deleteFromWishlist(item);
@@ -41,7 +42,6 @@ export class WishListComponent {
     this.wishItems = this.ordersService.getWishlistItems();
     this.showPopup(result);
   }
-
 
   showPopup(message: string): void {
     this.popupModal = true;
@@ -57,6 +57,4 @@ export class WishListComponent {
       this.popupModal = false;
     }, 1000);
   }
-
-
 }

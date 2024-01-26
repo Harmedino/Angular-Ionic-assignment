@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { OrdersService } from '../orders/orders.service';
+import { OrdersService } from '../../orders/orders.service';
 
 @Component({
   selector: 'app-checkout-modal',
@@ -12,9 +12,7 @@ import { OrdersService } from '../orders/orders.service';
 export class CheckoutModalComponent {
   @Input() showModal: boolean = false;
 
-  constructor(private orderService: OrdersService) {
-
-  }
+  constructor(private orderService: OrdersService) {}
 
   closeModal() {
     this.showModal = false;

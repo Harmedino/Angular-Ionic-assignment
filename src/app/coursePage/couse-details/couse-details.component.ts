@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
 import { ActivatedRoute } from '@angular/router';
 import { OrdersService } from '../../orders/orders.service';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
 import { NgIf } from '@angular/common';
 
 @Component({

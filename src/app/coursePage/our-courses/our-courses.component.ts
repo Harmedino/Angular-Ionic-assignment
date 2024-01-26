@@ -4,31 +4,39 @@ import { CourseService } from '../course-service.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrdersService } from '../../orders/orders.service';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
 
 @Component({
   selector: 'app-our-courses',
   standalone: true,
-  imports: [CommonModule, MatPaginatorModule, RouterLink, PopupModalComponent, NgIf],
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    RouterLink,
+    PopupModalComponent,
+    NgIf,
+  ],
   templateUrl: './our-courses.component.html',
-  styleUrls: ['./our-courses.component.css']
+  styleUrls: ['./our-courses.component.css'],
 })
 export class OurCoursesComponent implements OnInit {
   courses: any[] = [];
   pagedCourses: any[] = []; // Array to store the current page's courses
   pageSize = 4; // Number of courses per page
   currentPage = 0; // Initial page index
-  popupText:String =''
-  popupModal: Boolean = false
-  popupBackground: String = ''
-  currentRoute:String = ''
+  popupText: String = '';
+  popupModal: Boolean = false;
+  popupBackground: String = '';
+  currentRoute: String = '';
 
-  constructor(private courseService: CourseService,
+  constructor(
+    private courseService: CourseService,
     private orderService: OrdersService,
-  private route:ActivatedRoute) { }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe(data => {
+    this.courseService.getCourses().subscribe((data) => {
       this.courses = data;
       this.updatePagedCourses();
     });
@@ -46,7 +54,10 @@ export class OurCoursesComponent implements OnInit {
 
   updatePagedCourses() {
     const startIndex = this.currentPage * this.pageSize;
-    this.pagedCourses = this.courses.slice(startIndex, startIndex + this.pageSize);
+    this.pagedCourses = this.courses.slice(
+      startIndex,
+      startIndex + this.pageSize
+    );
   }
 
   addToCart(item: any) {
@@ -73,5 +84,4 @@ export class OurCoursesComponent implements OnInit {
     const result = this.orderService.addToWishlist(item);
     this.showPopup(result); // Handle the result as needed
   }
-
 }

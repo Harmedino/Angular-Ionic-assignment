@@ -3,8 +3,8 @@ import { OrdersService } from '../orders.service';
 import { NgFor, NgIf } from '@angular/common';
 import { NavigationbarComponent } from '../../home/navigationbar/navigationbar.component';
 import { RouterLink } from '@angular/router';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
-import { CheckoutModalComponent } from '../../checkout-modal/checkout-modal.component';
+import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
+import { CheckoutModalComponent } from '../../modal/checkout-modal/checkout-modal.component';
 
 @Component({
   selector: 'app-cart-list',

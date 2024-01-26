@@ -4,7 +4,7 @@ import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
 import { Authdata } from '../authData.model';
-import { PopupModalComponent } from '../../popup-modal/popup-modal.component';
+import { PopupModalComponent } from '../../modal/popup-modal/popup-modal.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -90,7 +90,6 @@ export class SignUpComponent {
     }
 
     setTimeout(() => {
-
       this.popupModal = false;
     }, 3000);
   }

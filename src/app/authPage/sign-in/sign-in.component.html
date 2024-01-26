@@ -23,8 +23,12 @@
           />
 
           <div *ngIf="email.touched">
-            <p class=" text-red-500" *ngIf="email.errors?.['required']">Email is a required field!</p>
-            <p  class=" text-red-500" *ngIf="email.errors?.['pattern']">This is not a valid Email!!!</p>
+            <p class="text-red-500" *ngIf="email.errors?.['required']">
+              Email is a required field!
+            </p>
+            <p class="text-red-500" *ngIf="email.errors?.['pattern']">
+              This is not a valid Email!!!
+            </p>
           </div>
         </div>
 
@@ -34,7 +38,7 @@
           >
           <div class="relative">
             <input
-            [type]="showPassword"
+              [type]="showPassword"
               id="password"
               placeholder="Enter your password"
               class="w-full border p-5 rounded-lg bg-white95 focus:outline-none focus:border-ornge50"
@@ -54,21 +58,25 @@
                 (click)="show()"
               ></i>
             </div>
-
-
           </div>
-          <span class=" text-red-500" *ngIf="!password.valid && password.touched">Please enter a password!</span>
+          <span class="text-red-500" *ngIf="!password.valid && password.touched"
+            >Please enter a password!</span
+          >
         </div>
 
         <button
-        type="submit"
-        class="w-full bg-ornge50 text-white p-2 rounded-lg"
-        [disabled]="!loginForm.valid || loading"
-        [ngStyle]="{ cursor: loginForm.invalid || loading ? 'not-allowed' : 'pointer' }"
-      >
-        <span *ngIf="!loading">Sign Up</span>
-        <span *ngIf="loading"> <i class="fa fa-spin fa-spinner mr-2"></i>Logging in ...</span>
-      </button>
+          type="submit"
+          class="w-full bg-ornge50 text-white p-2 rounded-lg"
+          [disabled]="!loginForm.valid || loading"
+          [ngStyle]="{
+            cursor: loginForm.invalid || loading ? 'not-allowed' : 'pointer'
+          }"
+        >
+          <span *ngIf="!loading">Sign Up</span>
+          <span *ngIf="loading">
+            <i class="fa fa-spin fa-spinner mr-2"></i>Logging in ...</span
+          >
+        </button>
         <!-- Forgot Password link -->
         <p class="pt-4 text-center">
           <a
@@ -86,8 +94,6 @@
         <div class="border-t border-gray-300 flex-grow"></div>
       </div>
 
-
-
       <!-- Don't have an account? Sign Up -->
       <p class="pt-4 text-center">
         Don't have an account?
@@ -99,7 +105,8 @@
   </div>
 </div>
 
-<app-popup-modal *ngIf="popupModal"
-popupText= {{popupText}}
-backgroundColor ={{popupBackground}}
+<app-popup-modal
+  *ngIf="popupModal"
+  popupText="{{ popupText }}"
+  backgroundColor="{{ popupBackground }}"
 ></app-popup-modal>

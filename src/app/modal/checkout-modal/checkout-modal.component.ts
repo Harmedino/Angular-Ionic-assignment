@@ -7,7 +7,6 @@ import { OrdersService } from '../../orders/orders.service';
   standalone: true,
   imports: [NgIf],
   templateUrl: './checkout-modal.component.html',
-  styleUrl: './checkout-modal.component.css',
 })
 export class CheckoutModalComponent {
   @Input() showModal: boolean = false;

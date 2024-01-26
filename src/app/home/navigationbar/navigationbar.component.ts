@@ -18,7 +18,6 @@ import { AuthServiceService } from '../../authPage/auth-service.service';
   standalone: true, //  This component is intended to be used independently.
   imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NgIf],
   templateUrl: './navigationbar.component.html',
-  styleUrl: './navigationbar.component.css',
 })
 export class NavigationbarComponent implements OnInit {
   mobileMenuOpen = false;

@@ -24,7 +24,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     NgStyle,
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
   // Add properties for form fields

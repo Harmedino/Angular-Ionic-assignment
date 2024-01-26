@@ -9,7 +9,6 @@ import { FooterComponent } from '../footer/footer.component';
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
   imports: [
     CommonModule,
     NavigationbarComponent,

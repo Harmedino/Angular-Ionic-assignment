@@ -6,6 +6,5 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './heropage.component.html',
-  styleUrl: './heropage.component.css',
 })
 export class HeropageComponent {}

@@ -6,7 +6,6 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgStyle],
   templateUrl: './popup-modal.component.html',
-  styleUrl: './popup-modal.component.css',
 })
 export class PopupModalComponent {
   constructor() {}
